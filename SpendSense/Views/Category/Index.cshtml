@@ -1,0 +1,91 @@
+﻿@model IEnumerable<SpendSense.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<p>
+    <a asp-action="AddOrEdit">Create New</a>
+</p>
+<div class="row">
+    <div class="col-md-7">
+        <ejs-grid id="categories" dataSource="@Model" gridLines="None" allowSorting="true" allowPaging="true">
+            <e-grid-pagesettings pageSive="5"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Category" field="TitleWithIcon"></e-grid-column>
+                <e-grid-column headerText="Type" field="Type"></e-grid-column>
+                <e-grid-column headerText="Actions" template="#actionColumnTemplate"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+
+
+</div>
+
+<script id='typeColumnTemplate' type="text/x-template">
+    ${Type == "Income"
+        ? "<span class='badge badge-secondary bg-success'> Type </span>"
+        : "<span class='badge badge-secondary bg-danger'> Type </span>"
+    }
+</script>
+
+<script id='actionColumnTemplate' type="text/x-template">
+    <div class="d-flex flex-row justify-content-start">
+        <a class="btn btn-sm text-primary" href="/Category/AddOrEdit/${CategoryID}">
+            <i class="fa-solid fa-pen fa-lg"></i> 
+        </a>
+
+        <form action="/Category/Delete/${CategoryID}">
+            <button type="submit" class="btn btn-sm btn-link">
+                <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
+            </button>    
+        </form>
+
+        <a class="btn btn-sm text-danger" href="/Category/Delete/${CategoryID}">
+            <i class="fa-solid fa-trash fa-lg"></i>
+        </a>
+        
+    </div>
+</script>
+
+
+
+
+
+@* <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Icon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Icon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                <a asp-action="AddOrEdit" asp-route-id="@item.CategoryID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CategoryID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table> *@
